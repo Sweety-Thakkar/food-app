@@ -17,7 +17,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import SideBarIcons from './SideBarIcons';
-import { makeStyles } from '@mui/styles';
 import logo from '../../assets/logo.png';
 import { Outlet, useNavigate } from "react-router-dom";
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -29,11 +28,6 @@ import { UserContext } from '../../App';
 
 const drawerWidth = 200;
 
-const useStyles = makeStyles({
-    paper: {
-        backgroundColor: "#fde4e4!important"
-    }
-});
 const pages = ['Home', 'Food', 'Cart', 'Contact']
 
 const openedMixin = (theme) => ({
@@ -155,8 +149,6 @@ export default function SideBar() {
         setOpen(false);
     };
 
-    const classes = useStyles()
-
     return (
         <CustomBox>
             <CssBaseline />
@@ -194,7 +186,7 @@ export default function SideBar() {
                     </Header>
                 </Toolbar>
             </AppBar>
-            <Drawer variant="permanent" open={open} classes={{ paper: classes?.paper }} >
+            <Drawer variant="permanent" open={open} >
                 <DrawerHeader >
                     <IconButton onClick={handleDrawerClose} sx={{ color: "red" }}>
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
