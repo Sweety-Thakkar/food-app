@@ -1,24 +1,32 @@
-import logo from './logo.svg';
+import React, {useState, createContext } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import AllFood from './components/allfood/AllFood';
+import MainLayout from './components/layout/MainLayout';
+import Home from './components/home/Home';
+import Cart from './components/cart/Cart';
+import Contact from './components/contact/Contact';
+import CheckOut from './components/checkout/CheckOut';
+
+export const UserContext = createContext()
 
 function App() {
+  const [foodList, setFoodList] = useState("")
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <UserContext.Provider value={{foodList,setFoodList}}>
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route index path='/' element={<Home />} />
+          <Route index path='/home' element={<Home />} />
+          <Route index path='/food' element={<AllFood />} />
+          <Route index path='/cart' element={<Cart />} />
+          <Route index path='/contact' element={<Contact />} />
+          <Route index path='/checkout' element={<CheckOut />} />
+        </Route>
+      </Routes>
+      </UserContext.Provider>
+    </>
   );
 }
 
