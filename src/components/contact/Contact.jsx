@@ -108,7 +108,7 @@ const Contact = () => {
                     <Grid xs={16} md={8} lg={4} >
                         <First variant="h6" noWrap component="div">
                             <img src={logo} alt='LOGO' />
-                            <h5>Tasty Treat</h5>
+                            <h5>Tasty Treats</h5>
                             <p>Indulge in our Tasty Treats - <br />
                                 Delicious bites that'll make your <br />
                                 taste buds dance with joy! Satisfy <br />
