@@ -81,7 +81,7 @@ export default function AllFood() {
           handleFilter(foodList)?.map((data, index) => {
             return <Grid key={index} item xs={12} sm={6} md={4} lg={3} >
               <Item>
-                <Zoom width={200} height={200} src={data.img} alt="" />
+                <Zoom  width={200} height={200} src={data.img} alt="" />
                 <ListItemText primary={<ListItemLabel>{data.label}</ListItemLabel>} />
                 <div >
                   <ListItemText primary={<ListItemPrice>{data.price}</ListItemPrice>} />

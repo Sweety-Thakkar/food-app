@@ -19,9 +19,9 @@ const Item = styled(Paper)({
     textAlign: 'center',
 });
 
-
 const Main = styled('div')({
     display: "flex",
+   flexWrap:"wrap",
     justifyContent: "space-around",
     alignItems: "center",
 
@@ -54,7 +54,6 @@ const Security = styled('div')({
 
 const SubContent = styled('div')({
     display: "flex",
-
     justifyContent: "center",
     paddingLeft: "24px",
     "& h4": {
@@ -87,6 +86,7 @@ const ListItemLabel = styled('div')({
 
 const Location = styled('div')({
     display: "flex",
+    flexWrap:"wrap",
     justifyContent: "space-around",
     alignItems: "center",
     "& img": {
@@ -109,8 +109,6 @@ const Location = styled('div')({
         fontFamily: "cursive",
         fontSize: "18px"
     },
-
-
 })
 
 const Home = () => {
@@ -118,7 +116,7 @@ const Home = () => {
     return (
         <>
             <Main>
-                <div style={{ width: "50%" }}>
+                <div style={{ width:{ xs:"100%",  md:"50%"}}}>
                     <h4> Easy Way to make an Order!</h4>
                     <h1>
                         <span style={{ color: "red" }}>Hungry? </span> Just wait <br />Food at your Door
@@ -173,7 +171,7 @@ const Home = () => {
                 <div>
                     <img src={location} alt='Location' />
                 </div>
-                <div>
+                <div style={{ width:{ xs:"100%",  md:"50%"}}}>
                     <h1> Why <span> Tasty Treat</span> ? </h1>
                     <p>As it gives:</p>
                     <h2> <ForwardIcon /> Fresh and Tasty Foods </h2>
