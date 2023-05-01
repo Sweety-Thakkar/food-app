@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import { api } from '../../api';
 
 function Copyright(props) {
   return (
@@ -30,15 +31,24 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
+  const [data,setData]=React.useState({
+    firstName:'',
+    lastName:'',
+    email:'',
+    password:'',
+  })
     const Navigate = useNavigate()
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+  const handleChnage = (e) => {
+ 
+  const {name,value}=e.target;
+   setData({ ...data, [name]: value });
   };
+  console.log(data)
+
+  const handleApiData= async()=>{
+    const { Data } = await api.auth.register(data);
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -58,7 +68,7 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate  sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -67,6 +77,8 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="firstName"
+                  value={data.firstName}
+                  onChange={(e)=>handleChnage(e)}
                   label="First Name"
                   autoFocus
                 />
@@ -76,6 +88,8 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="lastName"
+                  value={data.lastName}
+                  onChange={(e)=>handleChnage(e)}
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
@@ -86,6 +100,8 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="email"
+                  value={data.email}
+                  onChange={(e)=>handleChnage(e)}
                   label="Email Address"
                   name="email"
                   autoComplete="email"
@@ -97,6 +113,8 @@ export default function SignUp() {
                   fullWidth
                   name="password"
                   label="Password"
+                  onChange={(e)=>handleChnage(e)}
+                  value={data.password}
                   type="password"
                   id="password"
                   autoComplete="new-password"
@@ -110,7 +128,7 @@ export default function SignUp() {
               </Grid>
             </Grid>
             <Button
-            onClick={()=>Navigate('/home')}
+            onClick={()=>{Navigate('/home'); handleApiData();}}
               type="submit"
               fullWidth
               variant="contained"
