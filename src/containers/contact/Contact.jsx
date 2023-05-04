@@ -1,14 +1,9 @@
 import * as  React from 'react';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2';
-import logo from '../../assets/logo.png'
 import TextField from '@mui/material/TextField';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import YouTubeIcon from '@mui/icons-material/YouTube';
-import InstagramIcon from '@mui/icons-material/Instagram';
 import InputAdornment from '@mui/material/InputAdornment';
-import SendIcon from '@mui/icons-material/Send';
+import { ICONS, LOGOS } from '../../assets';
 
 const Container = styled('div')({
     backgroundColor: "#fde4e4"
@@ -107,7 +102,7 @@ const Contact = () => {
                 <Grid container spacing={2} columns={16}>
                     <Grid xs={16} md={8} lg={4} >
                         <First variant="h6" noWrap component="div">
-                            <img src={logo} alt='LOGO' />
+                            <img src={LOGOS.logo} alt='LOGO' />
                             <h5>Tasty Treats</h5>
                             <p>Indulge in our Tasty Treats - <br />
                                 Delicious bites that'll make your <br />
@@ -147,7 +142,7 @@ const Contact = () => {
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="End">
-                                            < SendIcon sx={{ color: "red" }} />
+                                            < ICONS.SendIcon sx={{ color: "red" }} />
                                         </InputAdornment>
                                     ),
                                 }}
@@ -162,7 +157,7 @@ const Contact = () => {
                         <p1>Copyright © 2023-2024, website made by Sweety Thakkar | All rights reserved.</p1>
                         <p2>Follow:
                             <div>
-                                <FacebookIcon /> <GitHubIcon /> <YouTubeIcon /> <InstagramIcon />
+                                <ICONS.FacebookIcon /> <ICONS.GitHubIcon /> <ICONS.YouTubeIcon /> <ICONS.InstagramIcon />
                             </div>
                         </p2>
                     </Fifth>

@@ -1,10 +1,5 @@
 import React from 'react'
 import { Button, TableContainer, styled } from '@mui/material'
-import burger1 from '../../assets/burger1.jpg'
-import DeleteIcon from '@mui/icons-material/Delete';
-import burger2 from '../../assets/burger2.jpg';
-import pizza1 from '../../assets/pizza1.jpg';
-import pizza2 from '../../assets/pizza2.jpg';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -13,6 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Contact from '../contact/Contact';
 import { useNavigate } from 'react-router-dom';
+import { ICONS, IMAGES } from '../../assets';
 
 const CartDesign = styled('div')({
   backgroundImage: `url('https://i.pinimg.com/originals/bf/65/d5/bf65d51f34b1bf193ec947f3c0c3f3e0.jpg')`,
@@ -61,15 +57,15 @@ const SubCell = styled(TableCell)({
 
 })
 
-function createData(image, ProductTitle, Price, Quantity, Action) {
-  return { image, ProductTitle, Price, Quantity, Action }
+function createData(IMAGES, ProductTitle, Price, Quantity, Action) {
+  return { IMAGES, ProductTitle, Price, Quantity, Action }
 }
 
 const rows = [
-  createData(burger1, "Hamburger", "Rs 100", 1),
-  createData(burger2, "Turkey burger", "Rs 100", 2),
-  createData(pizza1, "Farmhouse Pizza", "Rs 100", 1),
-  createData(pizza2, "Peppy Paneer Pizza", "Rs 100", 1)
+  createData(IMAGES.burger1, "Hamburger", "Rs 100", 1),
+  createData(IMAGES.burger2, "Turkey burger", "Rs 100", 2),
+  createData(IMAGES.pizza1, "Farmhouse Pizza", "Rs 100", 1),
+  createData(IMAGES.pizza2, "Peppy Paneer Pizza", "Rs 100", 1)
 ]
 
 const Image = styled('img')({
@@ -105,16 +101,16 @@ const Cart = () => {
               <TableBody>
                 {rows.map((row) => (
                   <TableRow
-                    key={row.image}
+                    key={row.IMAGES}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      <Image src={row.image} alt='food' />
+                      <Image src={row.IMAGES} alt='food' />
                     </TableCell>
                     <SubCell>{row.ProductTitle}</SubCell>
                     <SubCell>{row.Price}</SubCell>
                     <SubCell> {row.Quantity}</SubCell>
-                    <SubCell> <DeleteIcon sx={{ color: "red" }} />{row.Action}</SubCell>
+                    <SubCell> <ICONS.DeleteIcon sx={{ color: "red" }} />{row.Action}</SubCell>
                   </TableRow>
                 ))}
               </TableBody>

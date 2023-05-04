@@ -3,15 +3,14 @@ import { experimentalStyled as styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import FoodPhotos from './FoodPhotos';
 import { ListItemText } from '@mui/material';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useNavigate } from 'react-router-dom';
-import Contact from '../contact/Contact';
 import { UserContext } from '../../App';
-
+import { ICONS } from '../../assets';
+import Contact from '../contact/Contact';
+import { api } from '../../api';
 
 const CartDesign = styled('div')({
   backgroundImage: `url('https://i.pinimg.com/originals/bf/65/d5/bf65d51f34b1bf193ec947f3c0c3f3e0.jpg')`,
@@ -32,23 +31,25 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
   textAlign: 'center',
   color: theme.palette.text.secondary,
-
 }));
 
 export default function AllFood() {
   const Navigate = useNavigate()
+  const { label } = React.useContext(UserContext)
+  const [productlist, setProductlist] = React.useState([])
 
-  const { foodList } = React.useContext(UserContext);
-  console.log('foodList :>> ', foodList);
-
-  const handleFilter = (value) => {
-    const filterData = FoodPhotos.filter((data) => {
-      if (data.label.includes(value)) {
-        return data
-      } else return null
-    })
-    return filterData
+  const foodList = async () => {
+    const { data } = await api.product.get();
+    setProductlist(data)
   }
+  React.useEffect(() => {
+    foodList();
+  }, [])
+
+  console.log('productlist  :>> ', productlist);
+  console.log('label :>> ', label);
+
+
   const ListItemLabel = styled('div')({
     color: "#212245",
     fontWeight: "bold",
@@ -71,6 +72,7 @@ export default function AllFood() {
     }
   })
 
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <CartDesign sx={{ display: { xs: "none", md: "flex" } }}>
@@ -78,15 +80,15 @@ export default function AllFood() {
       </CartDesign>
       <Grid container sx={{ padding: 1 }} spacing={2}>
         {
-          handleFilter(foodList)?.map((data, index) => {
+          productlist.filter(item => label === "all" || item.category === label).map((data, index) => {
             return <Grid key={index} item xs={12} sm={6} md={4} lg={3} >
               <Item>
-                <Zoom  width={200} height={200} src={data.img} alt="" />
-                <ListItemText primary={<ListItemLabel>{data.label}</ListItemLabel>} />
+                <Zoom width={200} height={200} src={data.productImage} alt="" />
+                <ListItemText primary={<ListItemLabel>{data.productName}</ListItemLabel>} />
                 <div >
-                  <ListItemText primary={<ListItemPrice>{data.price}</ListItemPrice>} />
+                  <ListItemText primary={<ListItemPrice>{data.productPrice}</ListItemPrice>} />
                   <ButtonGroup>
-                    <Button variant='contained' color='error' onClick={() => Navigate('/cart')}>  Add to Cart  <AddShoppingCartIcon /> </Button>
+                    <Button variant='contained' color='error' onClick={() => Navigate('/cart')}>  Add to Cart  < ICONS.AddShoppingCartIcon /> </Button>
                   </ButtonGroup>
                 </div>
               </Item>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import qs from 'qs';
+// import qs from 'qs';
 const BASE_URL = 'http://localhost:3001';
 export const METHODS = {
     GET: 'get',
@@ -93,8 +93,8 @@ export function setHeaderToken(token) {
     else delete request.defaults.headers.Authorization;
 }
 
-function paramsSerializer(params) {
-    return qs.stringify(params, { arrayFormat: 'repeat' });
-}
+// function paramsSerializer(params) {
+//     return qs.stringify(params, { arrayFormat: 'repeat' });
+// }
 
 export default client;

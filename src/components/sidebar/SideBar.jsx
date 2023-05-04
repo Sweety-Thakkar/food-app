@@ -9,26 +9,21 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import SideBarIcons from './SideBarIcons';
-import logo from '../../assets/logo.png';
-import { Outlet, useNavigate } from "react-router-dom";
+import {Outlet, useNavigate } from "react-router-dom";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { UserContext } from '../../App';
-
-
-
-
+import { SideBarImages } from '../../utils/constant';
+import { ICONS, LOGOS } from '../../assets';
+import { Avatar, Menu, MenuItem } from '@mui/material';
 
 const drawerWidth = 200;
 
 const pages = ['Home', 'Food', 'Cart', 'Contact']
+
 
 const openedMixin = (theme) => ({
     width: drawerWidth,
@@ -130,16 +125,23 @@ const ListItemLabel = styled('div')({
 })
 
 export default function SideBar() {
-    const navigate = useNavigate();
+    const Navigate = useNavigate();
     const theme = useTheme();
     const matches = useMediaQuery('(min-width:786px)');
     const [open, setOpen] = React.useState(false);
-    const { setFoodList } = useContext(UserContext);
+    const { setLabel } = useContext(UserContext);
+    const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
+    };
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
 
     React.useEffect(() => {
         setOpen(matches);
     }, [matches])
-
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -165,23 +167,53 @@ export default function SideBar() {
                             ...(open && { display: 'none' }),
                         }}
                     >
-                        <MenuIcon />
+                        <ICONS.MenuIcon/>
                     </IconButton>
                     <Header>
                         <Typography variant="h6" noWrap component="div" sx={{ display: "flex", alignItems: "center", flexDirection: "row" }} >
-                            <img src={logo} alt='LOGO' />
+                            <img src={LOGOS.logo} alt='LOGO' />
                             <h5>Tasty Treat</h5>
                         </Typography>
                         <Box sx={{ fontWeight: "bold" }}>
                             <List sx={{ display: "flex", color: "red" }}>
                                 {pages.map((item) => (
                                     <ListItem key={item} disablePadding>
-                                        <ListItemButton onClick={() => navigate(`/${item}`)} sx={{ textAlign: 'center' }}>
+                                        <ListItemButton onClick={() => Navigate(`/${item}`)} sx={{ textAlign: 'center' }}>
                                             <ListItemText primary={item} />
                                         </ListItemButton>
                                     </ListItem>
                                 ))}
                             </List>
+                        </Box>
+                        <Box sx={{ flexGrow: 0 }}>
+                           
+                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                    <Avatar sx={{ backgroundColor:"#e74343"}}>
+                                    {localStorage.getItem("data.email").split('')[0].toUpperCase()}
+                                    </Avatar>
+                                </IconButton>
+                           
+                            <Menu
+                                sx={{ mt: '45px' }}
+                                id="menu-appbar"
+                                anchorEl={anchorElUser}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorElUser)}
+                                onClose={handleCloseUserMenu}
+                            >
+                                <MenuItem>
+                                    <Typography onClick={() => Navigate('/')} textAlign="center">LogOut</Typography>
+                                </MenuItem>
+
+                            </Menu>
                         </Box>
                     </Header>
                 </Toolbar>
@@ -189,21 +221,21 @@ export default function SideBar() {
             <Drawer variant="permanent" open={open} >
                 <DrawerHeader >
                     <IconButton onClick={handleDrawerClose} sx={{ color: "red" }}>
-                        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                        {theme.direction === 'rtl' ? <ICONS.ChevronRightIcon /> : <ICONS.ChevronLeftIcon />}
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
                 <List >
-                    {SideBarIcons.map((text, index) => (
+                    {SideBarImages.map((text, index) => (
                         <ListItem key={text.id} disablePadding sx={{ display: 'block', paddingTop: "45px" }}>
-                            <ListItemButton onClick={() => setFoodList(text.label)}
+                            <ListItemButton onClick={()=> setLabel(text.label)}
                                 sx={{
                                     minHeight: 48,
                                     justifyContent: open ? 'initial' : 'center',
                                     px: 2.5,
-
+                                    
                                 }}
-                            >
+                                >
                                 <ListItemIcon
                                     sx={{
                                         minWidth: 0,
@@ -220,9 +252,10 @@ export default function SideBar() {
                     ))}
                 </List>
             </Drawer>
+
             <Box sx={{ width: "100%" }} >
                 <DrawerHeader />
-                <Outlet/>
+                <Outlet />
             </Box>
         </CustomBox>
     );

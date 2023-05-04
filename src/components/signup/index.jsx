@@ -8,20 +8,18 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../../api';
+import { ICONS } from '../../assets';
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -31,22 +29,22 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-  const [data,setData]=React.useState({
-    firstName:'',
-    lastName:'',
-    email:'',
-    password:'',
+  const [data, setData] = React.useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
   })
-    const Navigate = useNavigate()
+  const Navigate = useNavigate()
 
-  const handleChnage = (e) => {
- 
-  const {name,value}=e.target;
-   setData({ ...data, [name]: value });
+  const handleChange = (e) => {
+
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
   };
   console.log(data)
 
-  const handleApiData= async()=>{
+  const handleApiData = async () => {
     const { Data } = await api.auth.register(data);
   }
 
@@ -63,12 +61,12 @@ export default function SignUp() {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
+            <ICONS.LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate  sx={{ mt: 3 }}>
+          <Box component="form" noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -78,7 +76,7 @@ export default function SignUp() {
                   fullWidth
                   id="firstName"
                   value={data.firstName}
-                  onChange={(e)=>handleChnage(e)}
+                  onChange={(e) => handleChange(e)}
                   label="First Name"
                   autoFocus
                 />
@@ -89,7 +87,7 @@ export default function SignUp() {
                   fullWidth
                   id="lastName"
                   value={data.lastName}
-                  onChange={(e)=>handleChnage(e)}
+                  onChange={(e) => handleChange(e)}
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
@@ -101,7 +99,7 @@ export default function SignUp() {
                   fullWidth
                   id="email"
                   value={data.email}
-                  onChange={(e)=>handleChnage(e)}
+                  onChange={(e) => handleChange(e)}
                   label="Email Address"
                   name="email"
                   autoComplete="email"
@@ -113,7 +111,7 @@ export default function SignUp() {
                   fullWidth
                   name="password"
                   label="Password"
-                  onChange={(e)=>handleChnage(e)}
+                  onChange={(e) => handleChange(e)}
                   value={data.password}
                   type="password"
                   id="password"
@@ -128,7 +126,7 @@ export default function SignUp() {
               </Grid>
             </Grid>
             <Button
-            onClick={()=>{Navigate('/home'); handleApiData();}}
+              onClick={() => { Navigate('/home'); handleApiData(); }}
               type="submit"
               fullWidth
               variant="contained"

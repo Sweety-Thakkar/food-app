@@ -3,9 +3,10 @@ import { styled } from '@mui/material'
 import TextField from '@mui/material/TextField';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
-import Contact from '../contact/Contact';
+
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
+import Contact from '../contact/Contact';
 
 
 const CheckoutDesign = styled('div')({
@@ -114,7 +115,7 @@ const CheckOut = () => {
                 </div>
             </Content>
             <br />
-            <Contact />
+          <Contact/>
         </CheckOutSection>
     )
 }
