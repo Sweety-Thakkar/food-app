@@ -18,7 +18,7 @@ export const api = {
     product: {
         get: (data) =>
             client({
-                url: '/products',
+                url: '/AllProduct',
                 method: METHODS.GET,
                 ...data 
             }),

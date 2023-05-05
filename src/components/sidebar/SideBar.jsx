@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -13,17 +13,17 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import {Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { UserContext } from '../../App';
 import { SideBarImages } from '../../utils/constant';
 import { ICONS, LOGOS } from '../../assets';
 import { Avatar, Menu, MenuItem } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { setFoodLabel } from '../../redux/reducers/foodSlice';
 
 const drawerWidth = 200;
 
 const pages = ['Home', 'Food', 'Cart', 'Contact']
-
 
 const openedMixin = (theme) => ({
     width: drawerWidth,
@@ -125,11 +125,13 @@ const ListItemLabel = styled('div')({
 })
 
 export default function SideBar() {
+
+    const dispatch = useDispatch()
     const Navigate = useNavigate();
     const theme = useTheme();
     const matches = useMediaQuery('(min-width:786px)');
     const [open, setOpen] = React.useState(false);
-    const { setLabel } = useContext(UserContext);
+
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
     const handleOpenUserMenu = (event) => {
@@ -167,7 +169,7 @@ export default function SideBar() {
                             ...(open && { display: 'none' }),
                         }}
                     >
-                        <ICONS.MenuIcon/>
+                        <ICONS.MenuIcon />
                     </IconButton>
                     <Header>
                         <Typography variant="h6" noWrap component="div" sx={{ display: "flex", alignItems: "center", flexDirection: "row" }} >
@@ -186,13 +188,13 @@ export default function SideBar() {
                             </List>
                         </Box>
                         <Box sx={{ flexGrow: 0 }}>
-                           
-                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar sx={{ backgroundColor:"#e74343"}}>
+
+                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                <Avatar sx={{ backgroundColor: "#e74343" }}>
                                     {localStorage.getItem("data.email").split('')[0].toUpperCase()}
-                                    </Avatar>
-                                </IconButton>
-                           
+                                </Avatar>
+                            </IconButton>
+
                             <Menu
                                 sx={{ mt: '45px' }}
                                 id="menu-appbar"
@@ -228,14 +230,14 @@ export default function SideBar() {
                 <List >
                     {SideBarImages.map((text, index) => (
                         <ListItem key={text.id} disablePadding sx={{ display: 'block', paddingTop: "45px" }}>
-                            <ListItemButton onClick={()=> setLabel(text.label)}
+                            <ListItemButton onClick={() => dispatch(setFoodLabel(text.label))}
                                 sx={{
                                     minHeight: 48,
                                     justifyContent: open ? 'initial' : 'center',
                                     px: 2.5,
-                                    
+
                                 }}
-                                >
+                            >
                                 <ListItemIcon
                                     sx={{
                                         minWidth: 0,

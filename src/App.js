@@ -1,16 +1,16 @@
-import React, { useState, createContext } from 'react';
+import React from 'react';
 import './App.css';
 import Link from './router';
-
-export const UserContext = createContext()
+import { Provider } from 'react-redux';
+import store from './redux';
 
 function App() {
-  const [label, setLabel] = useState("all")
+
   return (
     <>
-      <UserContext.Provider value={{ label, setLabel }}>
-        <Link />
-      </UserContext.Provider>
+      <Provider store={store}>
+          <Link />
+      </Provider>
     </>
   );
 }

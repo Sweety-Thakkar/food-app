@@ -1,6 +1,6 @@
 import axios from 'axios';
 // import qs from 'qs';
-const BASE_URL = 'http://localhost:3001';
+const BASE_URL = 'http://localhost:3000';
 export const METHODS = {
     GET: 'get',
     DELETE: 'delete',

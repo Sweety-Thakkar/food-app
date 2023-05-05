@@ -37,32 +37,8 @@ export default function SignIn() {
 
   const [data, setData] = React.useState(initialState)
   const [error, setError] = React.useState(initialState)
-
-  // const [login, setLogin] = React.useState(false)
-
+  
   const Navigate = useNavigate()
-
-  // const Data = await api.auth.login(data);
-  // console.log('Data :>> ', Data);
-
-  // if (Data.Password === " password  incorrect") {
-  //   setLogin(false)
-  // }
-  // else {
-  //   setLogin(true)
-  // }
-  // if (login === true) {
-  //   Navigate("/home")
-  // }
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get('email'),
-  //     password: data.get('password'),
-  //   });
-  // };
 
   const handleValidate = (name, value) => {
     switch (name) {
@@ -78,7 +54,6 @@ export default function SignIn() {
     }
   }
   
-
   const handleChnage = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
@@ -96,9 +71,9 @@ export default function SignIn() {
       Navigate('/home')
       localStorage.setItem("data.email",data.email)
     }
+    console.log('response :>> ', response);
   }
   
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -116,7 +91,6 @@ export default function SignIn() {
     }
     await handleLoginApi()
   }
-
 
   return (
     <ThemeProvider theme={theme}>

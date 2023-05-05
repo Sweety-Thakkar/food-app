@@ -8,7 +8,6 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -42,10 +41,11 @@ export default function SignUp() {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
   };
-  console.log(data)
+
 
   const handleApiData = async () => {
-    const { Data } = await api.auth.register(data);
+    const  Data  = await api.auth.register(data);
+    console.log('Data :>> ', Data);
   }
 
   return (

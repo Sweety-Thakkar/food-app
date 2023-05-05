@@ -7,10 +7,10 @@ import { ListItemText } from '@mui/material';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../App';
 import { ICONS } from '../../assets';
 import Contact from '../contact/Contact';
 import { api } from '../../api';
+import { useSelector } from 'react-redux';
 
 const CartDesign = styled('div')({
   backgroundImage: `url('https://i.pinimg.com/originals/bf/65/d5/bf65d51f34b1bf193ec947f3c0c3f3e0.jpg')`,
@@ -35,7 +35,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function AllFood() {
   const Navigate = useNavigate()
-  const { label } = React.useContext(UserContext)
+  const { label } = useSelector(state => state.food)
   const [productlist, setProductlist] = React.useState([])
 
   const foodList = async () => {
@@ -48,7 +48,6 @@ export default function AllFood() {
 
   console.log('productlist  :>> ', productlist);
   console.log('label :>> ', label);
-
 
   const ListItemLabel = styled('div')({
     color: "#212245",
@@ -71,7 +70,6 @@ export default function AllFood() {
       transform: "scale(1.2)",
     }
   })
-
 
   return (
     <Box sx={{ flexGrow: 1 }}>
